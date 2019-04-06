@@ -8,7 +8,8 @@ import numpy as np
 import re
 import sys, os
 import reading_bmp_file as read
-
+from PIL import Image
+import io
 
 # In[9]:
 
@@ -60,14 +61,27 @@ def write2file(charArrayNeg, charArrayPos):
 
 
 # In[5]:
-
+def createBmpFile(fileName):
+    im = Image.open(fileName)
+    f = io.StringIO()
+    fileNameNew = fileName.split(".")[0] + ".bmp"
+    im.save(fileNameNew)
+    return fileNameNew
 
 #getting argument (numpy array)
 args = sys.argv
 #print(args)
 if len(args) == 2:
     if os.path.isfile(args[1]):
-        hexArray = read.image_to_array(args[1])
+        fileType = args[1].split(".")[1]
+        if fileType == "jpg" or fileType == "jpeg":
+            fileName = createBmpFile(args[1])
+        elif fileType == "bmp":
+            fileName = args[1]
+        else:
+            print("Bad file format")
+            exit() 
+        hexArray = read.image_to_array(fileName)
         charArrNeg, charArrPos = num2char(hexArray)
         write2file(charArrNeg, charArrPos)
     else:
