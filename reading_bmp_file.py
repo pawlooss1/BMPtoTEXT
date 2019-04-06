@@ -1,23 +1,9 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[40]:
-
-
 import numpy as np
 import os
-
-
-# In[83]:
-
 
 def decode_n_bytes(image, n):
     word = image.read(n)
     return int.from_bytes(word, byteorder='little')
-
-
-# In[93]:
-
 
 def image_to_array(file_name):
     image = open('ludzie.bmp', 'rb')
@@ -35,10 +21,10 @@ def image_to_array(file_name):
     trash = image.read(offset)
     array = np.empty((height, width), dtype = int)
     for i in range(height):
-        for j in range(width):
+        for j in range(0, width * 2, 2):
             byte = image.read(1)
             number = int.from_bytes(byte, byteorder='big')
             array[height-1-i][j] = number
+            array[height-1-i][j+1] = number
             image.read(bytes_per_pixel - 1)
     return array
-
