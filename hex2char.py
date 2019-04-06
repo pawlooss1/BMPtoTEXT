@@ -63,7 +63,6 @@ def write2file(charArrayNeg, charArrayPos):
 # In[5]:
 def createBmpFile(fileName):
     im = Image.open(fileName)
-    f = io.StringIO()
     fileNameNew = fileName.split(".")[0] + ".bmp"
     im.save(fileNameNew)
     return fileNameNew
@@ -74,7 +73,7 @@ args = sys.argv
 if len(args) == 2:
     if os.path.isfile(args[1]):
         fileType = args[1].split(".")[1]
-        if fileType == "jpg" or fileType == "jpeg":
+        if fileType == "jpg" or fileType == "jpeg" or fileType == "png":
             fileName = createBmpFile(args[1])
         elif fileType == "bmp":
             fileName = args[1]
