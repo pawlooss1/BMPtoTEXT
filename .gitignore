@@ -1,6 +1,4 @@
 .ipynb_checkpoints
-ludzie.bmp
-file.txt
-finalFileNeg.txt
-finalFilePos.txt
-__pycache__
+__pychache__/**
+*.bmp
+*.txt
